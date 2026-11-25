@@ -1,0 +1,5 @@
+# Item photos and drafts are personal — keep them local
+items/*
+!items/_example/
+__pycache__/
+.DS_Store

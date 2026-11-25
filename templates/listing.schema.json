@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "eBay listing draft",
+  "description": "Shaped after eBay Sell Inventory API (inventory_item + offer) so it can be posted automatically later.",
+  "type": "object",
+  "required": ["sku", "marketplaceId", "product", "condition", "offer", "imageFiles"],
+  "properties": {
+    "sku": {"type": "string", "description": "Folder slug"},
+    "marketplaceId": {"type": "string", "default": "EBAY_US"},
+    "product": {
+      "type": "object",
+      "required": ["title", "description", "aspects"],
+      "properties": {
+        "title": {"type": "string", "maxLength": 80},
+        "description": {"type": "string"},
+        "aspects": {
+          "type": "object",
+          "description": "Item specifics, e.g. {\"Brand\": [\"Sony\"]}",
+          "additionalProperties": {"type": "array", "items": {"type": "string"}}
+        },
+        "brand": {"type": "string"},
+        "mpn": {"type": "string"}
+      }
+    },
+    "condition": {
+      "type": "string",
+      "enum": ["NEW", "NEW_OTHER", "USED_EXCELLENT", "USED_VERY_GOOD", "USED_GOOD", "USED_ACCEPTABLE", "FOR_PARTS_OR_NOT_WORKING"]
+    },
+    "conditionDescription": {"type": "string"},
+    "packageWeightAndSize": {
+      "type": "object",
+      "properties": {
+        "weightKg": {"type": "number"},
+        "lengthCm": {"type": "number"},
+        "widthCm": {"type": "number"},
+        "heightCm": {"type": "number"}
+      }
+    },
+    "offer": {
+      "type": "object",
+      "required": ["format", "price", "currency"],
+      "properties": {
+        "format": {"type": "string", "enum": ["FIXED_PRICE", "AUCTION"]},
+        "price": {"type": "number", "exclusiveMinimum": 0},
+        "currency": {"type": "string", "default": "USD"},
+        "categoryId": {"type": "string"},
+        "categoryPath": {"type": "string"},
+        "bestOffer": {
+          "type": "object",
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "autoAcceptPrice": {"type": "number"},
+            "autoDeclinePrice": {"type": "number"}
+          }
+        },
+        "shippingNotes": {"type": "string"},
+        "returnsPolicy": {"type": "string"},
+        "handlingTimeDays": {"type": "integer"}
+      }
+    },
+    "imageFiles": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "openQuestions": {"type": "array", "items": {"type": "string"}}
+  }
+}
