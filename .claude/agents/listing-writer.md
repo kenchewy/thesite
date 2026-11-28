@@ -13,7 +13,7 @@ Folder `items/<slug>/` with `identification.json`, `pricing.json`, `notes.txt` a
 1. **Title** (≤ 80 chars): Brand + Model + key spec/variant + colour/size + condition word if useful. Keywords buyers search, no "L@@K", "WOW", emojis or ALL CAPS. Count characters with Bash (`printf '%s' "..." | wc -m`) and shorten if over 80.
 2. **Category**: suggest the most specific eBay US category path (and category ID if you're confident; otherwise leave the ID empty and say "pick in eBay").
 3. **Item specifics**: Brand, Model, MPN, Type, Colour, etc. Only known values.
-4. **Condition** + **condition description**: plainly list every flaw from `identification.json`.
+4. **Condition** + **condition description**: plainly list every flaw from `identification.json`. Use the condition grade from `identification.json` as-is (don't regrade). If the eBay category uses different condition names (e.g. clothing/shoes use "Pre-owned"), mention the closest eBay option in `listing.md` but keep the JSON value unchanged.
 5. **Description** (plain text, short paragraphs / bullets): what it is, condition, what's included, what's NOT included, shipping from Malaysia (handling time, tracked, buyer responsible for import duties/taxes), returns policy per CLAUDE.md.
 6. **Pricing & shipping** from `pricing.json`.
 7. **Photo order**: best main photo first (clean, whole item), then angles, then flaws, then labels/serials. Suggest any missing shots.

@@ -55,7 +55,9 @@ def main(paths):
             continue
         errors = basic_checks(data, p.parent)
         if jsonschema:
-            errors += [e.message for e in jsonschema.Draft202012Validator(schema).iter_errors(data)]
+            # Older jsonschema (e.g. 3.2) has no 2020-12 validator; the schema only uses Draft 7 features.
+            validator_cls = getattr(jsonschema, "Draft202012Validator", None) or jsonschema.Draft7Validator
+            errors += [e.message for e in validator_cls(schema).iter_errors(data)]
         if errors:
             failed = True
             print(f"FAIL {p}")
